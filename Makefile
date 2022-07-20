@@ -28,6 +28,6 @@ fclean: clean
 	make fclean -C libft
 	rm -f $(SERVER) $(CLIENT)
 
-re:
+re: fclean all
 
 .PHONY: all clean fclean re

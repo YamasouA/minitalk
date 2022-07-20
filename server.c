@@ -27,11 +27,11 @@ int main()
 		i.bit_str += g_flag - SIGUSR1;
 		i.cnt++;
 		//printf("%d\n", i.cnt);
-		if (i.cnt == 16) {
+		if (i.cnt == 8) {
 			//printf("%zu\n", i.bit_str);
 			c = i.bit_str;
 			//printf("%c\n", c);
-			write(1, &c, 1);
+			write(STDOUT_FILENO, &c, 1);
 			i.bit_str = 0;
 			i.cnt = 0;
 		}
@@ -40,4 +40,8 @@ int main()
 		//printf("i: %zu\n", i.bit_str);
 		//printf("\n");
 	}
+	return 0;
 }
+
+
+
