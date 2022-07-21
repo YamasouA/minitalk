@@ -1,20 +1,27 @@
 #include "minitalk.h"
 
+void	put_error(char *error)
+{
+	ft_putendl_fd(error, STDERR_FILENO);
+	exit(EXIT_FAILURE);
+}
+
 void send_char(pid_t pid, char c)
 {
 	int	i;
 
 	i = 7;
-	while (i >= 0) {
-		if (c & (1 << i)){
-			kill(pid, SIGUSR2);
-			//printf("1");
+	while (i >= 0) 
+	{
+		if (c & (1 << i)) {
+			if (kill(pid, SIGUSR2) == -1)
+				put_error("kill fail");
 		}
-		else{
-			kill(pid, SIGUSR1);
-			//printf("0");
+		else {
+			if (kill(pid, SIGUSR1) == -1)
+				put_error("kill fail");
 		}
-		usleep(30);
+		usleep(50);
 		i--;
 	}
 }
@@ -23,14 +30,12 @@ void send_text(pid_t pid, char *text)
 {
 	size_t	len;
 	size_t	i;
-	char	c;
 
 	len = ft_strlen(text);
 	i = 0;
 	while (i < len)
 	{
-		c = text[i];
-		send_char(pid, c);
+		send_char(pid, text[i]);
 		i++;
 	}
 	send_char(pid, EOT);
@@ -40,16 +45,11 @@ void send_text(pid_t pid, char *text)
 int main(int argc, char *argv[])
 {
 	if (argc != 3)
-	{
-		printf("Usage: ./client [server process-id] [message]\n", STDERR_FILENO);
-		return 1;
-	}
+		put_error("argument should have 3");
 	pid_t pid;
-	pid = (pid_t)atol(argv[1]);
-	if (pid <= 0 || kill(pid, 0) == -1) {
-		printf("Not work this pid\n", STDERR_FILENO);
-		return 1;
-	}
+	pid = (pid_t)ft_atoi(argv[1]);
+	if (pid <= 0 || kill(pid, 0) == -1)
+		put_error("pid is bad");
 	send_text(pid, argv[2]);
 	return 0;
 }

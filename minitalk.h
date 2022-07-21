@@ -6,6 +6,6 @@
 
 typedef struct bit_data
 {
-	size_t	bit_str;
+	char	bit_char;
 	int	cnt;
 } bit_data;
