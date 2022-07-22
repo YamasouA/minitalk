@@ -43,12 +43,28 @@ void	send_text(pid_t pid, char *text)
 	send_char(pid, EOT);
 }
 
+bool	check_pid(char *s)
+{
+	while (*s)
+	{
+		if (ft_isdigit(*s))
+		{
+			s++;
+			continue;
+		}
+		return false;
+	}
+	return true;
+}
+
 int	main(int argc, char *argv[])
 {
 	int	pid;
 
 	if (argc != 3)
 		put_error("argument should have 3");
+	if (!check_pid(argv[1]))
+		put_error("pid has string");
 	pid = ft_atoi(argv[1]);
 	if (pid <= 0 || kill(pid, 0) == -1)
 		put_error("pid is bad");

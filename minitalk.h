@@ -3,6 +3,7 @@
 # include <signal.h>
 # include "libft/includes/libft.h"
 # include <stdio.h>
+# include <stdbool.h>
 
 # define EOT 0x4
 

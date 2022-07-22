@@ -13,7 +13,7 @@ static void	ft_get_signal(int sig)
 
 int	main(void)
 {
-	bit_data	receive_data;
+	t_bit_data	receive_data;
 	char		c;
 
 	g_flag = 0;
