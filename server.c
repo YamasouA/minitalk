@@ -4,19 +4,19 @@
 #include <unistd.h>
 #include "minitalk.h"
 
-volatile sig_atomic_t g_flag = 0;
+volatile sig_atomic_t	g_flag;
 
 static void	ft_get_signal(int sig)
 {
 	g_flag = sig;
 }
 
-
-int main()
+int	main(void)
 {
 	bit_data	receive_data;
 	char		c;
 
+	g_flag = 0;
 	receive_data.bit_char = 0;
 	ft_putstr_fd("PID: ", STDOUT_FILENO);
 	ft_putnbr_fd(getpid(), STDOUT_FILENO);
@@ -25,10 +25,11 @@ int main()
 	signal(SIGUSR2, ft_get_signal);
 	while (1)
 	{
-        	pause();
+		pause();
 		receive_data.bit_char += g_flag - SIGUSR1;
 		receive_data.cnt++;
-		if (receive_data.cnt == 8) {
+		if (receive_data.cnt == 8)
+		{
 			write(STDOUT_FILENO, &receive_data.bit_char, 1);
 			receive_data.bit_char = 0;
 			receive_data.cnt = 0;
@@ -37,4 +38,3 @@ int main()
 			receive_data.bit_char = receive_data.bit_char << 1;
 	}
 }
-

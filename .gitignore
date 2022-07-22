@@ -2,3 +2,7 @@ minitalk.pdf
 *.o
 test.sh
 test_file
+server
+client
+libft/libft.a
+*.swp
