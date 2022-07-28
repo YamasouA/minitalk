@@ -14,10 +14,10 @@ static void	ft_get_signal(int sig)
 int	main(void)
 {
 	t_bit_data	receive_data;
-	char		c;
 
 	g_flag = 0;
 	receive_data.bit_char = 0;
+	receive_data.cnt = 0;
 	ft_putstr_fd("PID: ", STDOUT_FILENO);
 	ft_putnbr_fd(getpid(), STDOUT_FILENO);
 	ft_putstr_fd("\n", STDOUT_FILENO);
